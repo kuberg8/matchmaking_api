@@ -12,13 +12,13 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'display_name' })
+  @Column({ name: 'display_name', nullable: true })
   displayName: string;
 
-  @Column({ nullable: true }) // nullable, если телефон может быть пустым
+  @Column({ nullable: true })
   phone: string;
 
-  @Column({ name: 'avatar_url', nullable: true }) // nullable, если аватар может отсутствовать
+  @Column({ name: 'avatar_url', nullable: true })
   avatarUrl: string;
 
   @ManyToMany(() => EventEntity, (event) => event.users, { cascade: true })

@@ -12,7 +12,7 @@ export class EventTypesEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'event_name', nullable: false })
+  @Column({ name: 'event_name', nullable: true })
   eventName: string;
 
   @OneToMany(() => EventEntity, (event) => event.eventType)

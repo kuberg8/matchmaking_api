@@ -20,52 +20,52 @@ export class EventEntity {
   @Column({ type: 'time' })
   time: string;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   country: string;
 
-  @Column()
+  @Column({ nullable: true })
   city: string;
 
-  @Column()
+  @Column({ nullable: true })
   place: string;
 
-  @Column({ name: 'member_count' })
+  @Column({ name: 'member_count', nullable: true })
   memberCount: number;
 
-  @Column({ name: 'max_member_count' })
+  @Column({ name: 'max_member_count', nullable: true })
   maxMemberCount: number;
 
-  @Column({ name: 'min_age' })
+  @Column({ name: 'min_age', nullable: true })
   minAge: number;
 
-  @Column({ name: 'max_age' })
+  @Column({ name: 'max_age', nullable: true })
   maxAge: number;
 
-  @Column()
+  @Column({ nullable: true })
   level: number;
 
-  @Column()
+  @Column({ nullable: true })
   inventory: boolean;
 
-  @Column({ name: 'is_private' })
+  @Column({ name: 'is_private', nullable: true })
   isPrivate: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   confirmation: boolean;
 
   @ManyToOne(() => EventTypesEntity, (eventType) => eventType.events)
   eventType: EventTypesEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.events)
+  @ManyToOne(() => UserEntity, (user) => user.events, { eager: true })
   author: UserEntity;
 
-  @ManyToMany(() => UserEntity, (user) => user.events)
+  @ManyToMany(() => UserEntity, (user) => user.events, { eager: true })
   @JoinTable({
     name: 'users_events',
     joinColumn: { name: 'event_id', referencedColumnName: 'id' },
