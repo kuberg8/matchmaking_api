@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { EventsModule } from './events/events.module';
-import { EventTypesModule } from './event_types/event_types.module';
+import { UsersModule } from './modules/users/users.module';
+import { EventsModule } from './modules/events/events.module';
+import { EventTypesModule } from './modules/event_types/event_types.module';
 import entities from './enities/index.entity';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
