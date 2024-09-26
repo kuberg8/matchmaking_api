@@ -11,19 +11,20 @@ import { ApiTags } from '@nestjs/swagger';
 import { UserEntity } from 'src/enities/user.entity';
 // import { UpdateResult } from 'typeorm';
 import { UsersService } from './users.service';
+import { UserDTO } from 'src/dto';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
-  @Get()
-  getAll(): Promise<UserEntity[]> {
-    return this.userService.findAll();
-  }
+  // @Get()
+  // getAll(): Promise<UserDTO[]> {
+  //   return this.userService.findAll();
+  // }
 
   @Get(':id')
-  getOne(@Param('id') id: number): Promise<UserEntity> {
+  getOne(@Param('id') id: number): Promise<UserDTO> {
     return this.userService.findOne(id);
   }
 

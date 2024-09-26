@@ -7,9 +7,15 @@ export class EventUsersDTO {
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  display_name?: string;
+  first_name?: string;
 
   @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  last_name?: string;
+
+  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   phone?: string;
 

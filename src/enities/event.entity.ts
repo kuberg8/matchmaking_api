@@ -62,10 +62,10 @@ export class EventEntity {
   @ManyToOne(() => EventTypesEntity, (eventType) => eventType.events)
   eventType: EventTypesEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.events, { eager: true })
+  @ManyToOne(() => UserEntity, (user) => user.events)
   author: UserEntity;
 
-  @ManyToMany(() => UserEntity, (user) => user.events, { eager: true })
+  @ManyToMany(() => UserEntity, (user) => user.events)
   @JoinTable({
     name: 'users_events',
     joinColumn: { name: 'event_id', referencedColumnName: 'id' },

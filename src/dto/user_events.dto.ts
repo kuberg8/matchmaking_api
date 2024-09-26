@@ -18,7 +18,7 @@ export class UserEventsDTO {
 
   @IsOptional()
   @IsDate()
-  time?: Date;
+  time?: string;
 
   @IsOptional()
   @IsString()
@@ -38,16 +38,16 @@ export class UserEventsDTO {
 
   @IsOptional()
   @IsNumber()
-  member_count?: number;
+  memberCount?: number;
 
   @IsOptional()
   @IsNumber()
-  max_member_count?: number;
+  maxMemberCount?: number;
 
   @IsOptional()
   @IsBoolean()
   confirmation?: boolean;
 
   @IsOptional()
-  event_type?: EventTypesEntity;
+  eventType?: EventTypesEntity;
 }

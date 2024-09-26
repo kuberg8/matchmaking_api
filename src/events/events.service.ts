@@ -39,7 +39,8 @@ export class EventsService {
       const userDTO = new EventUsersDTO();
       userDTO.id = user.id;
       userDTO.avatar_url = user.avatarUrl;
-      userDTO.display_name = user.displayName;
+      userDTO.first_name = user.first_name;
+      userDTO.last_name = user.last_name;
       userDTO.phone = user.phone;
       return userDTO;
     });

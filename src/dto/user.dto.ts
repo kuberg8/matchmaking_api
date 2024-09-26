@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsArray } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { UserEventsDTO } from './user_events.dto';
 
 export class UserDTO {
@@ -7,7 +7,11 @@ export class UserDTO {
 
   @IsOptional()
   @IsString()
-  display_name?: string;
+  first_name?: string;
+
+  @IsOptional()
+  @IsString()
+  last_name?: string;
 
   @IsOptional()
   @IsString()
@@ -15,9 +19,8 @@ export class UserDTO {
 
   @IsOptional()
   @IsString()
-  avatar_url?: string;
+  avatarUrl?: string;
 
   @IsOptional()
-  @IsArray()
   events?: UserEventsDTO[];
 }

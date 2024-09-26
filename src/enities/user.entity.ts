@@ -12,16 +12,22 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'display_name', nullable: true })
-  displayName: string;
+  @Column()
+  first_name: string;
 
-  @Column({ nullable: true })
+  @Column()
+  last_name: string;
+
+  @Column()
+  password: string;
+
+  @Column()
   phone: string;
 
   @Column({ name: 'avatar_url', nullable: true })
   avatarUrl: string;
 
-  @ManyToMany(() => EventEntity, (event) => event.users, { cascade: true })
+  @ManyToMany(() => EventEntity, (event) => event.users)
   @JoinTable({
     name: 'users_events',
     joinColumn: {
@@ -33,9 +39,5 @@ export class UserEntity {
       referencedColumnName: 'id',
     },
   })
-  events: Set<EventEntity>;
-
-  constructor() {
-    this.events = new Set<EventEntity>();
-  }
+  events: EventEntity[];
 }
