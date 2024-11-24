@@ -8,6 +8,10 @@ import { EventTypesModule } from './modules/event_types/event_types.module';
 import entities from './enities/index.entity';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
+import { TokenModule } from './modules/token/token.module';
+import { JwtStrategy } from './strategy/index';
+import { JwtAuthGuard } from './modules/guards/jwt-auth.guard';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -26,8 +30,13 @@ import { AuthModule } from './modules/auth/auth.module';
     EventsModule,
     EventTypesModule,
     AuthModule,
+    TokenModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '86000s' }, // время жизни токена
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtStrategy, JwtAuthGuard],
 })
 export class AppModule {}

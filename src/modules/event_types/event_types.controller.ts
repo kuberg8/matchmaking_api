@@ -32,17 +32,17 @@ export class EventTypesController {
     this.eventTypesService.create(event);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string): void {
-    this.eventTypesService.remove(id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string): void {
+  //   this.eventTypesService.remove(id);
+  // }
 
   // @Put(':id')
   // update(@Body() event: EventType, @Param('id') id: number): Promise<UpdateResult> {
   //   return this.eventTypesService.update(event, id);
   // }
-  @Put()
-  update(@Body() event: EventTypesEntity): Promise<EventTypesEntity> {
-    return this.eventTypesService.update(event);
-  }
+  // @Put()
+  // update(@Body() event: EventTypesEntity): Promise<EventTypesEntity> {
+  //   return this.eventTypesService.update(event);
+  // }
 }

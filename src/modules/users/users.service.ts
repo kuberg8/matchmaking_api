@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository /*, UpdateResult */ } from 'typeorm';
 import { UserEntity } from 'src/enities/user.entity';
-import * as bycrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { UserDTO, UserEventsDTO } from 'src/dto';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class UsersService {
   ) {}
 
   async hashPassword(password: string) {
-    return bycrypt.hash(password, 10);
+    return bcrypt.hash(password, 10);
   }
 
   private mapToUserDTO(user: UserEntity): UserDTO {
@@ -61,9 +61,10 @@ export class UsersService {
     await this.usersRepository.delete(id);
   }
 
-  async create(user: UserEntity): Promise<void> {
+  async create(user: UserEntity): Promise<UserDTO> {
     user.password = await this.hashPassword(user.password);
     await this.usersRepository.save(user);
+    return this.mapToUserDTO(user);
   }
 
   // update(user: User, id: string): Promise<UpdateResult> {
@@ -71,5 +72,14 @@ export class UsersService {
   // }
   update(user: UserEntity): Promise<UserEntity> {
     return this.usersRepository.save(user);
+  }
+
+  async findByPhone(phone: string): Promise<UserEntity> {
+    const user = await this.usersRepository.findOne({
+      where: { phone },
+      relations: ['events', 'events.eventType'],
+    });
+
+    return user;
   }
 }
