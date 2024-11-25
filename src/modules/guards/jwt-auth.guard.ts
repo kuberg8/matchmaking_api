@@ -11,7 +11,11 @@ export class JwtAuthGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
-    const excludedRoutes = ['/auth/register', '/auth/login']; // Ваши публичные маршруты
+    const excludedRoutes = [
+      '/auth/register',
+      '/auth/login',
+      // '/auth/logout' // // TODO: сделать logout при хранении revoked tokens в БД
+    ];
 
     // Проверка, если текущий маршрут в списке исключений
     if (excludedRoutes.includes(request.url)) {

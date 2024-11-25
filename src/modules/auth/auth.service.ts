@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { AppErrors } from 'src/common/constants/errors';
 import { TokenService } from 'src/modules/token/token.service';
 import { UserAuthDTO } from './dto/user_auth.dto';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -22,6 +23,7 @@ export class AuthService {
     const createdUser = await this.userService.create(user);
     const token = await this.tokenService.generateToken(createdUser.phone);
     return {
+      id: createdUser.id,
       first_name: createdUser.first_name,
       last_name: createdUser.last_name,
       phone: createdUser.phone,
@@ -44,11 +46,38 @@ export class AuthService {
     const token = await this.tokenService.generateToken(user.phone);
 
     return {
+      id: user.id,
       first_name: user.first_name,
       last_name: user.last_name,
       phone: user.phone,
       avatarUrl: user.avatarUrl,
       token,
+    };
+  }
+
+  // TODO: сделать logout при хранении revoked tokens в БД
+  // async logout(request: Request): Promise<void> {
+  //   const token = request.headers['authorization']?.split(' ')[1];
+  //   if (!token) throw new BadRequestException(AppErrors.NO_TOKEN);
+  //   await this.tokenService.revokeToken(token);
+  // }
+
+  async getUserInfo(request: Request): Promise<UserAuthDTO> {
+    const token = request.headers['authorization']?.split(' ')[1];
+    const payload = await this.tokenService.verifyToken(token);
+    if (!payload || !payload.user) {
+      throw new BadRequestException(AppErrors.INVALID_TOKEN);
+    }
+
+    const user = await this.userService.findByPhone(payload.user);
+    if (!user) throw new BadRequestException(AppErrors.USER_NOT_EXIST);
+
+    return {
+      id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      phone: user.phone,
+      avatarUrl: user.avatarUrl,
     };
   }
 }

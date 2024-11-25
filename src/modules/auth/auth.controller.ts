@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserEntity } from 'src/enities/user.entity';
 import { UserLoginDTO } from './dto/index.dto';
@@ -17,5 +17,16 @@ export class AuthController {
   @Post('login')
   login(@Body() payload: UserLoginDTO) {
     return this.authService.login(payload);
+  }
+
+  // TODO: сделать logout при хранении revoked tokens в БД
+  // @Post('logout')
+  // logout(@Request() request) {
+  //   return this.authService.logout(request);
+  // }
+
+  @Get('user-info')
+  async getUserInfo(@Request() request) {
+    return this.authService.getUserInfo(request);
   }
 }
